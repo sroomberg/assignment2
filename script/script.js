@@ -3,20 +3,20 @@
 function validate(aForm) {
 	var ret = '';
 	
-	nameErr = validateName(aForm.name);
-	phoneErr = validatePhone(aForm.phone);
-	messageErr = validateMsg(aForm.message);
+	var nameErr = validateName(aForm['name'].value);
+	var phoneErr = validatePhone(aForm['phone'].value);
 
-	ret += (nameErr == 0 ? '' : errorMsgName(nameErr));
-	ret += (phoneErr == 0 ? '' : errorMsgPhone(phoneErr));
-	ret += (messageErr == 0 ? '' : errorMsgMessage(messageErr));
+	ret += errorMsgName(nameErr);
+	ret += '\n';
+	ret += errorMsgPhone(phoneErr);
 
-	return ((nameErr + phoneErr + messageErr == 0) ? 'SUCCESS' : ret);
+	alert((nameErr + phoneErr == 0) ? 'SUCCESS' : ret);
+	return false;
 }
 
 function validateName(aString) {
 	var ret = 0;
-	if (aString == '' || aString == null) {
+	if (aString === '' || aString === undefined) {
 		return ++ret; // no input provided
 	}
 	if (/\d/.test(aString)) {
@@ -26,14 +26,15 @@ function validateName(aString) {
 }
 
 function errorMsgName(nameErrs) {
-	if (nameErrs == 1) {
-
+	if (nameErrs > 0) {
+		return 'INVALID NAME';
 	}
+	return '';
 }
 
 function validatePhone(aNumber) {
 	var ret = 0;
-	if (aNumber == '' || aNumber == null) {
+	if (aNumber === '' || aNumber === undefined) {
 		return ++ret; // no input provided
 	}
 	if (/[a-z]/i.test(aNumber)) {
@@ -43,17 +44,8 @@ function validatePhone(aNumber) {
 }
 
 function errorMsgPhone(phoneErrs) {
-
-}
-
-function validateMsg(aString) {
-	var ret = 0;
-	if (aString == '' || aString == null) {
-		return ++ret; // no input provided
+	if (phoneErrs > 0) {
+		return 'INVALID PHONE';
 	}
-	return ret;
-}
-
-function errorMsgMessage(messageErrs) {
-
+	return '';
 }
