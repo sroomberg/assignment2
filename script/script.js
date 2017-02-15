@@ -10,7 +10,14 @@ function validate(aForm) {
 	ret += '\n';
 	ret += errorMsgPhone(phoneErr);
 
-	alert((nameErr + phoneErr == 0) ? 'SUCCESS' : ret);
+	var success = (nameErr + phoneErr == 0);
+	if (success) {
+		aForm.innerHTML = '<p>SUCCESS</p>';
+	}
+	else {
+		alert(ret);
+	}
+	
 	return false;
 }
 
